@@ -10,25 +10,27 @@ const menuItems = [
 { label: 'Contact', ariaLabel: 'Reach out', link: '#contact' }
 ];
 
-const socialItems = [
-{ label: 'X', link: 'https://x.com/notahmedwael' },
-{ label: 'GitHub', link: 'https://github.com/notahmedwael' },
-{ label: 'LinkedIn', link: 'https://www.linkedin.com/in/ahmed-wael-9a6389284' }
-];
+// const socialItems = [
+// { label: 'X', link: 'https://x.com/notahmedwael' },
+// { label: 'GitHub', link: 'https://github.com/notahmedwael' },
+// { label: 'LinkedIn', link: 'https://www.linkedin.com/in/ahmed-wael-9a6389284' }
+// ];
 
 
 export default function Navbar(){
     return (
         <nav id="nav" className="my-5 w-[90%] mx-auto text-brand-light h-20 flex justify-between items-center">
             
-            {/* Staggered Menu Side For Smaller Devices */}
+            {/* Staggered Menu Side For Smaller Devices
+                Socials are commented for now until I figure it out later
+            */}
             <div className="block lg:hidden">
             <StaggeredMenu
                 position="right"
                 isFixed = {true}
                 items={menuItems}
-                socialItems={socialItems}
-                displaySocials
+                // socialItems={socialItems}
+                // displaySocials
                 displayItemNumbering={true}
                 logoUrl="/favicon.ico"
                 menuButtonColor="#eeeeee"
@@ -76,7 +78,7 @@ export default function Navbar(){
 
             {/* Right Side */}
             <div className="hidden lg:block" >
-            <a href="mailto:notahmedwael888@gmail.com">
+            <a href="https://wa.me/2001118441530" target="_blank" rel="noopener noreferrer">
                 <button type="button" className="p-2 bg-brand-light rounded-br-xl rounded-tl-xl text-brand-dark font-medium hover:bg-brand-accent hover:text-brand-light hover:cursor-pointer transition  duration-300">
                     Let&apos;s Talk!
                 </button>

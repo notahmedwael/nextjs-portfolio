@@ -7,7 +7,7 @@ import Link from "next/link";
 export default function Hero() {
     return (
         
-        <section className="w-[90%] md:w-[80%] mt-10 md:mt-20 mx-auto flex flex-col lg:flex-row items-center lg:items-start lg:justify-between gap-12 min-h-[80vh]">
+        <section className="w-[90%] md:w-[80%] mt-10 md:mt-20 mx-auto flex flex-col lg:flex-row items-center lg:items-start lg:justify-between gap-12">
 
             {/* Text Side */}
             <div className="flex flex-col justify-between w-full lg:w-1/2 text-center lg:text-left items-center lg:items-start">
@@ -54,7 +54,7 @@ export default function Hero() {
                             type="button"
                             className="w-full sm:w-auto p-3 md:p-2 bg-brand-light rounded-md text-brand-dark font-medium hover:bg-brand-accent hover:text-brand-light transition duration-300 cursor-pointer"
                         >
-                            View Projects
+                            Previous Work
                         </button>
                     </Link>
 
