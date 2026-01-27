@@ -9,17 +9,23 @@ interface CardRotateProps {
   onSendToBack: () => void;
   sensitivity: number;
   disableDrag?: boolean;
+  isMobile?: boolean;
 }
 
-function CardRotate({ children, onSendToBack, sensitivity, disableDrag = false }: CardRotateProps) {
+function CardRotate({ children, onSendToBack, sensitivity, disableDrag = false, isMobile = false }: CardRotateProps) {
   const x = useMotionValue(0);
   const y = useMotionValue(0);
   const rotateX = useTransform(y, [-100, 100], [60, -60]);
   const rotateY = useTransform(x, [-100, 100], [-60, 60]);
 
   function handleDragEnd(_event: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) {
-    if (Math.abs(info.offset.x) > sensitivity || Math.abs(info.offset.y) > sensitivity) {
+    // On mobile, be more lenient with sensitivity
+    const threshold = isMobile ? sensitivity * 0.5 : sensitivity;
+    
+    if (Math.abs(info.offset.x) > threshold || Math.abs(info.offset.y) > threshold) {
       onSendToBack();
+      x.set(0);
+      y.set(0);
     } else {
       x.set(0);
       y.set(0);
@@ -29,7 +35,7 @@ function CardRotate({ children, onSendToBack, sensitivity, disableDrag = false }
   if (disableDrag) {
     return (
       <motion.div 
-        className="absolute inset-0 cursor-pointer" 
+        className="absolute inset-0 cursor-pointer touch-manipulation" 
         style={{ x: 0, y: 0 }}
         initial={false}
       >
@@ -40,12 +46,12 @@ function CardRotate({ children, onSendToBack, sensitivity, disableDrag = false }
 
   return (
     <motion.div
-      className="absolute inset-0 cursor-grab active:cursor-grabbing"
+      className="absolute inset-0 cursor-grab active:cursor-grabbing touch-manipulation"
       style={{ x, y, rotateX, rotateY }}
       drag
-      dragConstraints={{ top: -50, right: 50, bottom: 50, left: -50 }}
-      dragElastic={0.2}
-      dragMomentum={true}
+      dragConstraints={{ top: -100, right: 100, bottom: 100, left: -100 }}
+      dragElastic={0.15}
+      dragTransition={{ power: 0.2, restDelta: 0.001 }}
       whileTap={{ cursor: 'grabbing' }}
       onDragEnd={handleDragEnd}
     >
@@ -69,7 +75,7 @@ interface StackProps {
 
 export default function Stack({
   randomRotation = false,
-  sensitivity = 200,
+  sensitivity = 100,
   cards = [],
   animationConfig = { stiffness: 260, damping: 20 },
   sendToBackOnClick = false,
@@ -81,8 +87,10 @@ export default function Stack({
 }: StackProps) {
   const [isMobile, setIsMobile] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
+  const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
+    setIsClient(true);
     const checkMobile = () => {
       setIsMobile(window.innerWidth < mobileBreakpoint);
     };
@@ -154,6 +162,7 @@ export default function Stack({
     setStack(prev => {
       const newStack = [...prev];
       const index = newStack.findIndex(card => card.id === id);
+      if (index === -1) return prev;
       const [card] = newStack.splice(index, 1);
       newStack.unshift(card);
       return newStack;
@@ -171,23 +180,33 @@ export default function Stack({
     }
   }, [autoplay, autoplayDelay, stack, isPaused]);
 
+  if (!isClient) {
+    return null;
+  }
+
   return (
     <div
-      className="relative w-full h-full"
+      className="relative w-full h-full select-none"
       style={{
-        perspective: 600
+        perspective: 600,
+        WebkitPerspective: 600,
+        WebkitTouchCallout: 'none',
+        WebkitUserSelect: 'none'
       }}
       onMouseEnter={() => pauseOnHover && setIsPaused(true)}
       onMouseLeave={() => pauseOnHover && setIsPaused(false)}
     >
       {stack.map((card, index) => {
         const randomRotate = randomRotation ? Math.random() * 10 - 5 : 0;
+        const zIndex = stack.length - index;
+        
         return (
           <CardRotate
             key={card.id}
             onSendToBack={() => sendToBack(card.id)}
             sensitivity={sensitivity}
             disableDrag={shouldDisableDrag}
+            isMobile={isMobile}
           >
             <motion.div
               className="rounded-2xl overflow-hidden w-full h-full"
@@ -202,6 +221,9 @@ export default function Stack({
                 type: 'spring',
                 stiffness: animationConfig.stiffness,
                 damping: animationConfig.damping
+              }}
+              style={{
+                zIndex: zIndex
               }}
             >
               {card.content}
