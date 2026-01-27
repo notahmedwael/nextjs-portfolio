@@ -130,8 +130,35 @@
 @layer base {
   * {
     @apply border-border outline-ring/50;
+    scroll-behavior: smooth;
   }
   body {
     @apply bg-background text-foreground;
+  }
+
+/* 1. Define the width of the scrollbar area */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  /* 2. Make the track (background) invisible */
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  /* 3. Style the "dragger" (thumb) */
+  ::-webkit-scrollbar-thumb {
+    background: var(--brand-accent);
+    /* Adding a radius makes it look like a floating pill */
+    border-radius: 10px;
+  }
+
+  /* 4. Optional: Dim it slightly when not hovering for a cleaner look */
+  ::-webkit-scrollbar-thumb {
+    background: color-mix(in srgb, var(--brand-accent), transparent 20%);
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--brand-accent);
   }
 }
