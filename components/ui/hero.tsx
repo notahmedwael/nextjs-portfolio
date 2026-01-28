@@ -52,7 +52,7 @@ export default function Hero() {
                     <Link href='#projects' className="w-full sm:w-auto">
                         <button
                             type="button"
-                            className="w-full sm:w-auto p-3 md:p-2 bg-brand-light rounded-md text-brand-dark font-medium hover:bg-brand-accent hover:text-brand-light transition duration-300 cursor-pointer"
+                            className="w-full border sm:w-auto p-3 md:p-2 bg-brand-light rounded-md text-brand-dark font-medium hover:bg-brand-accent hover:text-brand-light transition duration-300 cursor-pointer"
                         >
                             Previous Work
                         </button>
