@@ -27,7 +27,7 @@ export default function Projects() {
                             
                             <div className="w-full h-full max-w-50 sm:max-w-64 md:max-w-75 max-h-50 sm:max-h-64 md:max-h-75">
                                 <Stack
-                                    randomRotation={true}
+                                    randomRotation={false}
                                     sensitivity={100}
                                     sendToBackOnClick={true}
                                     cards={graduationProject.map((src, i) => (
@@ -41,6 +41,9 @@ export default function Projects() {
                                             />
                                         </div>
                                     ))}
+                                        autoplay
+                                        autoplayDelay={2000}
+                                        pauseOnHover
                                 />
                             </div>
                         </div>
