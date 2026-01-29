@@ -436,7 +436,7 @@ export default function Projects() {
                                     rel="noopener noreferrer"
                                     className="inline-flex items-center gap-2 hover:text-brand-accent hover:underline font-semibold hover:gap-4 transition-all duration-300"
                                 >
-                                    View Repo
+                                    Visit Repo
                                 </a>
                             </p>
 
@@ -525,7 +525,7 @@ export default function Projects() {
 
                             {/* Tech Stack Tags */}
                             <div className="flex flex-wrap gap-2 mt-auto">
-                                {['React.js', 'Typescript', 'Tailwind'].map((tech) => (
+                                {['React.js', 'Typescript', 'Tailwind', 'Vercel'].map((tech) => (
                                     <span key={tech} className="text-[10px] md:text-[11px] font-semibold text-white/40 border border-white/10 px-2 py-1 rounded md:group-hover:border-brand-accent/30 transition-colors bg-white/5">
                                         {tech}
                                     </span>
@@ -607,7 +607,7 @@ export default function Projects() {
 
                             {/* Tech Stack Tags */}
                             <div className="flex flex-wrap gap-2 mt-auto">
-                                {['React.js', 'TypeScript', 'Tailwind'].map((tech) => (
+                                {['React.js', 'TypeScript', 'Tailwind', 'Netlify', 'CDN'].map((tech) => (
                                     <span key={tech} className="text-[10px] md:text-[11px] font-semibold text-white/40 border border-white/10 px-2 py-1 rounded md:group-hover:border-brand-accent/30 transition-colors bg-white/5">
                                         {tech}
                                     </span>
@@ -684,7 +684,7 @@ export default function Projects() {
                                     rel="noopener noreferrer"
                                     className="inline-flex items-center gap-2 hover:text-brand-accent hover:underline font-semibold hover:gap-4 transition-all duration-300"
                                 >
-                                    View Repo
+                                    Visit Repo
                                 </a>
                             </p>
 
